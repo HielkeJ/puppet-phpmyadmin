@@ -62,7 +62,7 @@ class phpmyadmin (
     file { $apache_default_config:
       ensure  => $state_select,
       content => template('phpmyadmin/phpMyAdmin.conf.erb'),
-      require => [Package[$package_name], Package[$apache_name]],
+      require => [Package[$package_name], Package['httpd']],
       notify  => Service[$apache_name],
     }
   }
