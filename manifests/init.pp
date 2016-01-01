@@ -57,14 +57,12 @@ class phpmyadmin (
     include ::apache::mod::php
   }
 
-  if $manage_apache == true {
-    #Default/basic apache config file for phpMyAdmin
-    file { $apache_default_config:
-      ensure  => $state_select,
-      content => template('phpmyadmin/phpMyAdmin.conf.erb'),
-      require => [Package[$package_name], Package['httpd']],
-      notify  => Service[$apache_name],
-    }
+  #Default/basic apache config file for phpMyAdmin
+  file { $apache_default_config:
+    ensure  => $state_select,
+    content => template('phpmyadmin/phpMyAdmin.conf.erb'),
+    require => [Package[$package_name], Package['httpd']],
+    notify  => Service[$apache_name],
   }
 
   $enabledt = str2bool($enabled)
